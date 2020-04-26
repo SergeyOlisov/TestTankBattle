@@ -34,6 +34,7 @@ int main()
 		ShowBoard(board1);
 		Move(tank1, board1,boardMine2,boardMine1,mine1,'T');
 		Shot(board2, tank1, tank2);
+		system("pause");
 		system("cls");
 		if (mine1.GetCounter() > 0) 
 		{
@@ -55,6 +56,7 @@ int main()
 		ShowBoard(board2);
 		Move(tank2, board2,boardMine1,boardMine2,mine2,'T');
 		Shot(board1, tank2, tank1);
+		system("pause");
 		system("cls");
 
 		if (mine2.GetCounter() > 0)
