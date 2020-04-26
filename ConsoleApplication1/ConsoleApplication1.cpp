@@ -15,8 +15,8 @@ void ShowMine(Tank tank, Mine mine);
 
 int main()
 {
-	Tank tank1("Tank1", 100, 50);
-	Tank tank2("Tank2", 100, 50);
+	Tank tank1("Tank1", 100, 10);
+	Tank tank2("Tank2", 100, 10);
 	Mine mine1;
 	Mine mine2;
 	Board board1;
