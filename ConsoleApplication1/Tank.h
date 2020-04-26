@@ -25,7 +25,16 @@ public:
 
 	void SetHP(int damage) //получение урона танком
 	{
-		this->hp -= damage;
+		hp -= damage;
+	}
+
+	void SetHealHP(int heal)
+	{
+		hp += heal;
+		if (hp > 100)
+		{
+			hp = 100;
+		}
 	}
 	
 	int GetHP()

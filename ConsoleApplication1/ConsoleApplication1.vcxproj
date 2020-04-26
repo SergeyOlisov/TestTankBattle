@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Heal.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="Tank.h" />
   </ItemGroup>

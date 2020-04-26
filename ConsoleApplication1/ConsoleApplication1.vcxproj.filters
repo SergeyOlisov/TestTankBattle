@@ -29,5 +29,8 @@
     <ClInclude Include="Mine.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="Heal.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

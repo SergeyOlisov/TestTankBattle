@@ -2,6 +2,7 @@
 #include "Tank.h"
 #include "Board.h"
 #include "Mine.h"
+#include "Heal.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ void ShowBoard(Board board);
 void ShowStat(Tank tank1, Tank tank2);// для отображения здоровья и полученого урона танка
 void ShowMap();
 void ShowMine(Tank tank, Mine mine);
+void HealTank(Tank& tank, Heal& heal);
 
 
 int main()
@@ -19,6 +21,8 @@ int main()
 	Tank tank2("Tank2", 100, 10);
 	Mine mine1;
 	Mine mine2;
+	Heal heal1;
+	Heal heal2;
 	Board board1;
 	Board board2;
 	Board boardMine1;
@@ -26,10 +30,20 @@ int main()
 
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
+
 		ShowBoard(board1);
 		Move(tank1, board1,boardMine2,boardMine1,mine1,'T');
 		Shot(board2, tank1, tank2);
-		Move(tank1, board1,boardMine2,boardMine1,mine1,'M');
+		system("cls");
+		if (mine1.GetCounter() > 0) 
+		{
+			cout << "Mine reload after " << mine1.GetCounter() << " turns " << endl;
+		} else {
+			Move(tank1, board1, boardMine2, boardMine1, mine1, 'M');
+			mine1.ActivateCounter();
+		}
+		mine1.Countdown();
+		HealTank(tank1, heal1);
 		
 		if(tank2.GetHP()<=0)
 		{
@@ -41,7 +55,17 @@ int main()
 		ShowBoard(board2);
 		Move(tank2, board2,boardMine1,boardMine2,mine2,'T');
 		Shot(board1, tank2, tank1);
-		Move(tank2, board2, boardMine1, boardMine2, mine2, 'M');
+		system("cls");
+
+		if (mine2.GetCounter() > 0)
+		{
+			cout << "Mine reload after " << mine2.GetCounter() << " turns " << endl;
+		} else {
+			Move(tank2, board2, boardMine1, boardMine2, mine2, 'M');
+			mine2.ActivateCounter();
+		}
+		mine2.Countdown();
+		HealTank(tank2, heal2);
 		
 		if(tank1.GetHP()<=0)
 		{
@@ -73,8 +97,7 @@ void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mi
 			{
 			case 1:
 				if (action == 'T')
-				{
-					
+				{					
 					board.ClearBoard();
 					board.SetCoordinate(0, 0, action);
 					if (boardMine2.GetCoordinate(0, 0) == 'M')
@@ -412,5 +435,30 @@ void ShowMine(Tank tank,Mine mine)
 {
 	cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine()<<" By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
 }
+void HealTank(Tank& tank,Heal &heal)
+{
+	if (heal.GetCounter() > 0)
+	{
+		cout << "Wait for reload your Heal "<< heal.GetCounter() << endl;
 
+
+	}
+	else 
+	{
+		char move;
+		cout << "Heal you tank? y - yes, n - no" << endl;
+		cin >> move;
+		switch (move)
+		{
+		case 'y':
+			tank.SetHealHP(heal.GetHeal());
+			heal.SetCounter();
+			cout << "Your HP =" << tank.GetHP() <<" After heal "<< endl;
+
+			break;
+		default:
+			break;
+		}	
+	}
+}
 
