@@ -1,11 +1,11 @@
 #pragma once
-using namespace std;
 #include <string>
+using namespace std;
 
 class Tank
 {
 private:
-	string name;
+	std::string name;
 	int hp;
 	int damage;
 	int initiative;
@@ -21,7 +21,7 @@ public:
 		
 	}
 
-	Tank(string name, int hp, int damage,int initiative) //конструктор
+	Tank(std::string name, int hp, int damage,int initiative) //конструктор
 	{
 		this->name = name;
 		this->hp = hp;

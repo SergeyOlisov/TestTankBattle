@@ -8,7 +8,6 @@ class Mine
 private:
 	int counter = 0;
 	string name = "Mine";
-	char spel;
 	int damageMine = 15;
 public:
 	Mine() {}

@@ -11,8 +11,12 @@ void Shot(Board& board, Tank& attack, Tank& defence);
 void ShowBoard(Board board);
 void ShowStat(Tank tank1, Tank tank2);// для отображения здоровья и полученого урона танка
 void ShowMap();
-void ShowMine(Tank tank, Mine mine);
+void ShowMineStat(Tank tank, Mine mine);
 void HealTank(Tank& tank, Heal& heal);
+void MoveTank(Tank &tank,Board &board, Board &boardMine);
+void MoveMine(Tank& tank, Board& boardMine);
+void CheckShot(Board& board, Tank& attak, Tank& defence,int x,int y);
+void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y);
 
 
 int main()
@@ -30,7 +34,14 @@ int main()
 
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
-		if (tank1.GetOngoingIniciative() >= 10) 
+		MoveTank(tank1, board1,boardMine1);
+		MoveMine(tank1, boardMine2);
+		Shot(board2, tank1, tank2);
+
+		MoveTank(tank2, board2,boardMine2);
+		MoveMine(tank2, boardMine1);
+		Shot(board1, tank2, tank1);
+		/*if (tank1.GetOngoingIniciative() >= 10) 
 		{
 			//Ходит первый игрок
 			ShowBoard(board1);
@@ -86,198 +97,80 @@ int main()
 			cout << tank1.GetName() << " WIN " << endl;
 		}
 		system("pause");
-		system("cls");
+		system("cls");*/
 	}
 }
-void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mine, char action)
+
+
+
+void MoveTank(Tank &tank,Board &board, Board &boardMine)
 {
-		int move;
+	    Mine mine;
+	    ShowBoard(board);
+        int move;
 		bool check = false;
 		do
 		{
 			check = false;
 			
 			ShowMap();
-			if (action == 'T')
-			{
-				cout << name.GetName() << " Enter your move - ";
-			}
-			else if (action == 'M')
-			{
-				cout << name.GetName() << " Enter your mine - ";
-			}
+			
 			cin >> move;		
 			switch (move)
 			{
-			case 1:
-				if (action == 'T')
-				{					
+			case 1:					
 					board.ClearBoard();
-					board.SetCoordinate(0, 0, action);
-					if (boardMine2.GetCoordinate(0, 0) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(0, 0, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if(action == 'M') 
-				{
-					boardMine1.SetCoordinate(0, 0, action);
-				}
+					board.SetCoordinate(0, 0, 'T');
+					CheckMine(boardMine, tank, mine, 0, 0);
 				break;
 
 			case 2:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(0, 1, action);
-					if (boardMine2.GetCoordinate(0, 1) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(0, 1, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					boardMine1.SetCoordinate(0, 1, action);
-				}
+				    board.ClearBoard();
+					board.SetCoordinate(0, 1, 'T');
+					CheckMine(boardMine, tank, mine, 0, 1);
 				break;
 			case 3:
-				if (action == 'T')
-				{
-					
-					board.ClearBoard();
-					board.SetCoordinate(0, 2, action);
-					if (boardMine2.GetCoordinate(0, 2) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(0, 2, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(0, 2, action);
-				}
+				    board.ClearBoard();
+					board.SetCoordinate(0, 2, 'T');
+					CheckMine(boardMine, tank, mine, 0, 2);
+				
 				break;
 			case 4:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(1, 0, action);
-					if (boardMine2.GetCoordinate(1, 0) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(1, 0, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(1, 0, action);
-				}
+				 board.ClearBoard();
+			     board.SetCoordinate(1, 0, 'T');
+				 CheckMine(boardMine, tank, mine, 1, 0);
 				break;
 			case 5:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(1, 1, action);
-					if (boardMine2.GetCoordinate(1, 1) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(1, 1, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(1, 1, action);
-				}
+				 board.ClearBoard();
+			     board.SetCoordinate(1, 1, 'T');
+				 CheckMine(boardMine, tank, mine, 1, 1);
 				break;
 			case 6:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(1, 2, action);
-					if (boardMine2.GetCoordinate(1, 2) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(1, 2, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(1, 2, action);
-				}
+				board.ClearBoard();
+			    board.SetCoordinate(1, 2, 'T');
+				CheckMine(boardMine, tank, mine, 1, 2);
 				break;
 			case 7:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(2, 0, action);
-					if (boardMine2.GetCoordinate(2, 0) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(2, 0, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(2, 0, action);
-				}
-				break;
+				board.ClearBoard();
+			    board.SetCoordinate(2, 0, 'T');
+				CheckMine(boardMine, tank, mine, 2, 0);
 			case 8:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(2, 1, action);
-					if (boardMine2.GetCoordinate(2, 1) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(2, 1, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(2, 1, action);
-				}
+				board.ClearBoard();
+			    board.SetCoordinate(2, 1, 'T');
+				CheckMine(boardMine, tank, mine, 2, 1);
 				break;
 			case 9:
-				if (action == 'T')
-				{
-					board.ClearBoard();
-					board.SetCoordinate(2, 2, action);
-					if (boardMine2.GetCoordinate(2, 2) == 'M')
-					{
-						name.SetHP(mine.GetDamageMine());
-						boardMine2.SetCoordinate(2, 2, ' ');
-						ShowMine(name, mine);
-					}
-				}
-				else if (action == 'M')
-				{
-					
-					boardMine1.SetCoordinate(2, 2, action);
-				}
+				board.ClearBoard();
+			    board.SetCoordinate(2, 2, 'T');
+				CheckMine(boardMine, tank, mine, 2, 2);
 				break;
 			default:
 				cout << "Wrong ccordinate";
 				check = true;
 			}
 		} while (check);
-}
 
+}
 
 
 void Shot(Board& board, Tank& attack, Tank& defence)
@@ -293,112 +186,31 @@ void Shot(Board& board, Tank& attack, Tank& defence)
 		switch (shot)
 		{
 		case 1:
-			if (board.GetCoordinate(0, 0) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 0, 0);
 			break;
 		case 2:
-			if (board.GetCoordinate(0, 1) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 0, 1);
 			break;
 		case 3:
-			if (board.GetCoordinate(0, 2) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 0, 2);
 			break;
 		case 4:
-			if (board.GetCoordinate(1, 0) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 1, 0);
 			break;
 		case 5:
-			if (board.GetCoordinate(1, 1) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 1, 1);
 			break;
 		case 6:
-			if (board.GetCoordinate(1, 2) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 1, 2);
 			break;
 		case 7:
-			if (board.GetCoordinate(2, 0) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 2, 0);
 			break;
 		case 8:
-			if (board.GetCoordinate(2, 1) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 2, 1);
 			break;
 		case 9:
-			if (board.GetCoordinate(2, 2) == 'T')
-			{
-				defence.SetHP(attack.GetDamage());
-				ShowStat(attack, defence);
-			}
-			else
-			{
-				cout << "Miss" << endl;
-				break;
-			}
+			CheckShot(board, attack, defence, 2, 2);
 			break;
 		default:
 			check = true;
@@ -445,7 +257,7 @@ void ShowStat(Tank tank1,Tank tank2)// для отображения здоро�
 	cout << "Tank - " << tank2.GetName() << " Have damage - " << tank1.GetDamage() << " .HP " << tank2.GetName() << "= " << tank2.GetHP() << endl;
 
 }
-void ShowMine(Tank tank,Mine mine)
+void ShowMineStat(Tank tank,Mine mine)
 {
 	cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine()<<" By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
 }
@@ -473,6 +285,75 @@ void HealTank(Tank& tank,Heal &heal)
 		default:
 			break;
 		}	
+	}
+}
+
+void MoveMine(Tank& tank, Board& boardMine)
+{
+	int move;
+	bool check = false;
+	do
+	{
+		check = false;
+		ShowMap();
+		cout << tank.GetName() << " Enter your mine - ";
+		cin >> move;
+		switch (move)
+		{
+		case 1:		
+				boardMine.SetCoordinate(0, 0, 'M');		
+			break;
+
+		case 2:		
+				boardMine.SetCoordinate(0, 1, 'M');		
+			break;
+		case 3:
+				boardMine.SetCoordinate(0, 2, 'M');
+			break;
+		case 4:
+				boardMine.SetCoordinate(1, 0, 'M');
+			break;
+		case 5:
+				boardMine.SetCoordinate(1, 1, 'M');
+			break;
+		case 6:
+				boardMine.SetCoordinate(1, 2, 'M');
+			break;
+		case 7:
+				boardMine.SetCoordinate(2, 0, 'M');
+			break;
+		case 8:
+				boardMine.SetCoordinate(2, 1, 'M');
+			break;
+		case 9:
+				boardMine.SetCoordinate(2, 2, 'M');
+			break;
+		default:
+			cout << "Wrong ccordinate";
+			check = true;
+		}
+	} while (check);
+}
+
+void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
+{
+	if (board.GetCoordinate(x, y) == 'T')
+	{
+		defence.SetHP(attack.GetDamage());
+		ShowStat(attack, defence);
+	}
+	else
+	{
+		cout << "Miss" << endl;
+	}
+}
+void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int y)
+{
+	if (boardDefenceMine.GetCoordinate(x, y) == 'M')
+	{
+		tankDefence.SetHP(mine.GetDamageMine());
+		boardDefenceMine.SetCoordinate(x, y, ' ');
+		ShowMineStat(tankDefence, mine);
 	}
 }
 
