@@ -17,8 +17,8 @@ void HealTank(Tank& tank, Heal& heal);
 
 int main()
 {
-	Tank tank1("Tank1", 100, 10);
-	Tank tank2("Tank2", 100, 10);
+	Tank tank1("Tank1", 100, 10, 5);
+	Tank tank2("Tank2", 100, 10, 10);
 	Mine mine1;
 	Mine mine2;
 	Heal heal1;
@@ -30,29 +30,41 @@ int main()
 
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
+		if (tank1.GetOngoingIniciative() >= 10) 
+		{
+			//Ходит первый игрок
+			ShowBoard(board1);
+			Move(tank1, board1, boardMine2, boardMine1, mine1, 'T');
+			Shot(board2, tank1, tank2);
+			system("pause");
+			system("cls");
+			if (mine1.GetCounter() > 0)
+			{
+				cout << "Mine reload after " << mine1.GetCounter() << " turns " << endl;
+			}
+			else {
+				Move(tank1, board1, boardMine2, boardMine1, mine1, 'M');
+				mine1.ActivateCounter();
+			}
+			mine1.Countdown();
+			HealTank(tank1, heal1);
 
-		ShowBoard(board1);
-		Move(tank1, board1,boardMine2,boardMine1,mine1,'T');
-		Shot(board2, tank1, tank2);
-		system("pause");
-		system("cls");
-		if (mine1.GetCounter() > 0) 
-		{
-			cout << "Mine reload after " << mine1.GetCounter() << " turns " << endl;
-		} else {
-			Move(tank1, board1, boardMine2, boardMine1, mine1, 'M');
-			mine1.ActivateCounter();
+			if (tank2.GetHP() <= 0)
+			{
+				cout << tank2.GetName() << " WIN " << endl;
+			}
+			system("pause");
+			system("cls");
+			tank1.ZeroingInitiative();
 		}
-		mine1.Countdown();
-		HealTank(tank1, heal1);
-		
-		if(tank2.GetHP()<=0)
+		else if(tank1.GetOngoingIniciative()<10)
 		{
-			cout << tank2.GetName() << " WIN " << endl;
+
+			tank1.SetInitiative(tank1.GetInitiative());
 		}
-		system("pause");
 		
-		system("cls");
+		
+		//Ходит второй игрок
 		ShowBoard(board2);
 		Move(tank2, board2,boardMine1,boardMine2,mine2,'T');
 		Shot(board1, tank2, tank1);
