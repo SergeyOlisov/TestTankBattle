@@ -9,7 +9,7 @@ using namespace std;
 void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mine, char action);
 void Shot(Board& board, Tank& attack, Tank& defence);
 void ShowBoard(Board board);
-void ShowStat(Tank tank1, Tank tank2);// для отображения здоровья и полученого урона танка
+void ShowShot(int damage, Tank tank1, Tank tank2);// для отображения здоровья и полученого урона танка
 void ShowMap();
 void ShowMineStat(Tank tank, Mine mine);
 void HealTank(Tank& tank, Heal& heal);
@@ -21,8 +21,8 @@ void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int
 
 int main()
 {
-	Tank tank1("Tank1", 100, 10, 5);
-	Tank tank2("Tank2", 100, 10, 10);
+	Tank tank1("Tank1", 100, 6, 10);
+	Tank tank2("Tank2", 100, 6, 10);
 	Mine mine1;
 	Mine mine2;
 	Heal heal1;
@@ -37,10 +37,14 @@ int main()
 		MoveTank(tank1, board1,boardMine1);
 		MoveMine(tank1, boardMine2);
 		Shot(board2, tank1, tank2);
+		system("pause");
+		system("cls");
 
 		MoveTank(tank2, board2,boardMine2);
 		MoveMine(tank2, boardMine1);
 		Shot(board1, tank2, tank1);
+		system("pause");
+		system("cls");
 		/*if (tank1.GetOngoingIniciative() >= 10) 
 		{
 			//Ходит первый игрок
@@ -251,15 +255,15 @@ void ShowMap()
 	}
 }
 
-void ShowStat(Tank tank1,Tank tank2)// для отображения здоровья и полученого урона танка
+void ShowShot (int damage,Tank tank1, Tank tank2)// для отображения здоровья и полученого урона танка
 {
 	cout << tank1.GetName() << " Good shot !!!" << endl;
-	cout << "Tank - " << tank2.GetName() << " Have damage - " << tank1.GetDamage() << " .HP " << tank2.GetName() << "= " << tank2.GetHP() << endl;
+	cout << "Tank - " << tank2.GetName() << " Have damage - " << damage << " .HP " << tank2.GetName() << "= " << tank2.GetHP() << endl;
 
 }
 void ShowMineStat(Tank tank,Mine mine)
 {
-	cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine()<<" By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
+	cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() <<" By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
 }
 void HealTank(Tank& tank,Heal &heal)
 {
@@ -295,8 +299,8 @@ void MoveMine(Tank& tank, Board& boardMine)
 	do
 	{
 		check = false;
-		ShowMap();
 		cout << tank.GetName() << " Enter your mine - ";
+		ShowMap();
 		cin >> move;
 		switch (move)
 		{
@@ -339,8 +343,14 @@ void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 {
 	if (board.GetCoordinate(x, y) == 'T')
 	{
-		defence.SetHP(attack.GetDamage());
-		ShowStat(attack, defence);
+		int damage;
+		damage = attack.GetDamage();
+		if(damage>10)
+		{
+			cout << "!!!Critical damage!!!" << endl;
+		}
+		defence.SetHP(damage);
+		ShowShot(damage, attack, defence);
 	}
 	else
 	{
@@ -356,4 +366,5 @@ void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int 
 		ShowMineStat(tankDefence, mine);
 	}
 }
+
 

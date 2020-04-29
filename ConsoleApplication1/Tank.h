@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 using namespace std;
+#include<stdlib.h>//в этом файле содержится функция rand
+#include<time.h> //в этом файле содержится функция time
+
 
 class Tank
 {
@@ -15,7 +18,7 @@ public:
 	{
 		name = "Tank";
 		hp = 100;
-		damage = 10;
+		damage = 6;
 		initiative = 10;
 		ongoingInitiative = initiative;
 		
@@ -59,8 +62,19 @@ public:
 	}
 	int GetDamage()
 	{
-		return damage;
+		srand(time(0));
+		int critical = 1+rand() % 5;
+		int probability = 5 + rand() % damage;
+		if(critical==5)
+		{
+			return 2*probability;
+		}
+		else 
+		{
+			return probability;
+		}
 	}
+	
 	string GetName()
 	{
 		return name;
