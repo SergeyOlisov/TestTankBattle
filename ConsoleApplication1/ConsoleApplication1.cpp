@@ -364,6 +364,7 @@ void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int 
 		tankDefence.SetHP(mine.GetDamageMine());
 		boardDefenceMine.SetCoordinate(x, y, ' ');
 		ShowMineStat(tankDefence, mine);
+		cout << "Test";
 	}
 }
 
