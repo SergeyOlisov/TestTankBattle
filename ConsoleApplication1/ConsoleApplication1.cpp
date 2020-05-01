@@ -3,24 +3,21 @@
 #include "Board.h"
 #include "Mine.h"
 #include "Heal.h"
+#include "IO.h"
 
 using namespace std;
 
 void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mine, char action);
 void Shot(Board& board, Tank& attack, Tank& defence);
-void ShowBoard(Board board);
-void ShowShot(int damage, Tank tank1, Tank tank2);// для отображения здоровья и полученого урона танка
-void ShowMap();
-void ShowMineStat(Tank tank, Mine mine);
 void HealTank(Tank& tank, Heal& heal);
 void MoveTank(Tank &tank,Board &board, Board &boardMine);
 void MoveMine(Tank& tank, Board& boardMine);
 void CheckShot(Board& board, Tank& attak, Tank& defence,int x,int y);
 void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y);
-
-
+  
 int main()
 {
+	IO io;
 	Tank tank1("Tank1", 100, 6, 10);
 	Tank tank2("Tank2", 100, 6, 10);
 	Mine mine1;
@@ -31,9 +28,10 @@ int main()
 	Board board2;
 	Board boardMine1;
 	Board boardMine2;
-
+	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
+		
 		MoveTank(tank1, board1,boardMine1);
 		MoveMine(tank1, boardMine2);
 		Shot(board2, tank1, tank2);
@@ -109,15 +107,16 @@ int main()
 
 void MoveTank(Tank &tank,Board &board, Board &boardMine)
 {
+	    IO io;
 	    Mine mine;
-	    ShowBoard(board);
+		io.ShowBoard(board);
         int move;
 		bool check = false;
 		do
 		{
 			check = false;
 			
-			ShowMap();
+			io.ShowMap();
 			
 			cin >> move;		
 			switch (move)
@@ -222,49 +221,8 @@ void Shot(Board& board, Tank& attack, Tank& defence)
 		} 
 	} while (check);
 }
-void ShowBoard(Board board)
-{
-	cout << "-------" << endl;
-	for (int i = 0; i < 3; i++)
-	{
-		cout << "|";
-		for (int j = 0; j < 3; j++)
-		{
-			cout << board.GetCoordinate(i,j) << "|";
-		}
-		cout << endl;
-		cout << "-------" << endl;
-	}
-}
-void ShowMap()
-{
-	int count= 1;
-	cout << endl;
-	cout << "-------" << endl;
-	for (int i = 0; i < 3; i++)
-	{
-		cout << "|";
-		for (int j = 0; j < 3; j++)
-		{
-			cout << count << "|";
-			count++;
 
-		}
-		cout << endl;
-		cout << "-------" << endl;
-	}
-}
 
-void ShowShot (int damage,Tank tank1, Tank tank2)// для отображения здоровья и полученого урона танка
-{
-	cout << tank1.GetName() << " Good shot !!!" << endl;
-	cout << "Tank - " << tank2.GetName() << " Have damage - " << damage << " .HP " << tank2.GetName() << "= " << tank2.GetHP() << endl;
-
-}
-void ShowMineStat(Tank tank,Mine mine)
-{
-	cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() <<" By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
-}
 void HealTank(Tank& tank,Heal &heal)
 {
 	if (heal.GetCounter() > 0)
@@ -300,7 +258,7 @@ void MoveMine(Tank& tank, Board& boardMine)
 	{
 		check = false;
 		cout << tank.GetName() << " Enter your mine - ";
-		ShowMap();
+		
 		cin >> move;
 		switch (move)
 		{
@@ -341,6 +299,7 @@ void MoveMine(Tank& tank, Board& boardMine)
 
 void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 {
+	IO io;
 	if (board.GetCoordinate(x, y) == 'T')
 	{
 		int damage;
@@ -350,7 +309,7 @@ void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 			cout << "!!!Critical damage!!!" << endl;
 		}
 		defence.SetHP(damage);
-		ShowShot(damage, attack, defence);
+		io.ShowShot(damage, attack, defence);
 	}
 	else
 	{
@@ -359,12 +318,13 @@ void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 }
 void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int y)
 {
+	IO io;
 	if (boardDefenceMine.GetCoordinate(x, y) == 'M')
 	{
 		tankDefence.SetHP(mine.GetDamageMine());
 		boardDefenceMine.SetCoordinate(x, y, ' ');
-		ShowMineStat(tankDefence, mine);
-		cout << "Test";
+		io.ShowMineStat(tankDefence, mine);
+		
 	}
 }
 

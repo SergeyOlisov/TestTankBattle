@@ -32,5 +32,8 @@
     <ClInclude Include="Heal.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="IO.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
