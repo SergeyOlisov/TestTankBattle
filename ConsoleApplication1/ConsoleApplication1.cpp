@@ -4,16 +4,17 @@
 #include "Mine.h"
 #include "Heal.h"
 #include "IO.h"
+#include "MoveTank.h"
 
 using namespace std;
 
 void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mine, char action);
 void Shot(Board& board, Tank& attack, Tank& defence);
 void HealTank(Tank& tank, Heal& heal);
-void MoveTank(Tank &tank,Board &board, Board &boardMine);
+//void MoveTank(Tank &tank,Board &board, Board &boardMine);
 void MoveMine(Tank& tank, Board& boardMine);
 void CheckShot(Board& board, Tank& attak, Tank& defence,int x,int y);
-void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y);
+//void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y);
   
 int main()
 {
@@ -29,16 +30,19 @@ int main()
 	Board boardMine1;
 	Board boardMine2;
 	
+	
+	
+	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
 		
-		MoveTank(tank1, board1,boardMine1);
+		/*MoveTank(tank1, board1,boardMine1);*/
 		MoveMine(tank1, boardMine2);
 		Shot(board2, tank1, tank2);
 		system("pause");
 		system("cls");
 
-		MoveTank(tank2, board2,boardMine2);
+		/*MoveTank(tank2, board2,boardMine2);*/
 		MoveMine(tank2, boardMine1);
 		Shot(board1, tank2, tank1);
 		system("pause");
@@ -105,75 +109,75 @@ int main()
 
 
 
-void MoveTank(Tank &tank,Board &board, Board &boardMine)
-{
-	    IO io;
-	    Mine mine;
-		io.ShowBoard(board);
-        int move;
-		bool check = false;
-		do
-		{
-			check = false;
-			
-			io.ShowMap();
-			
-			cin >> move;		
-			switch (move)
-			{
-			case 1:					
-					board.ClearBoard();
-					board.SetCoordinate(0, 0, 'T');
-					CheckMine(boardMine, tank, mine, 0, 0);
-				break;
-
-			case 2:
-				    board.ClearBoard();
-					board.SetCoordinate(0, 1, 'T');
-					CheckMine(boardMine, tank, mine, 0, 1);
-				break;
-			case 3:
-				    board.ClearBoard();
-					board.SetCoordinate(0, 2, 'T');
-					CheckMine(boardMine, tank, mine, 0, 2);
-				
-				break;
-			case 4:
-				 board.ClearBoard();
-			     board.SetCoordinate(1, 0, 'T');
-				 CheckMine(boardMine, tank, mine, 1, 0);
-				break;
-			case 5:
-				 board.ClearBoard();
-			     board.SetCoordinate(1, 1, 'T');
-				 CheckMine(boardMine, tank, mine, 1, 1);
-				break;
-			case 6:
-				board.ClearBoard();
-			    board.SetCoordinate(1, 2, 'T');
-				CheckMine(boardMine, tank, mine, 1, 2);
-				break;
-			case 7:
-				board.ClearBoard();
-			    board.SetCoordinate(2, 0, 'T');
-				CheckMine(boardMine, tank, mine, 2, 0);
-			case 8:
-				board.ClearBoard();
-			    board.SetCoordinate(2, 1, 'T');
-				CheckMine(boardMine, tank, mine, 2, 1);
-				break;
-			case 9:
-				board.ClearBoard();
-			    board.SetCoordinate(2, 2, 'T');
-				CheckMine(boardMine, tank, mine, 2, 2);
-				break;
-			default:
-				cout << "Wrong ccordinate";
-				check = true;
-			}
-		} while (check);
-
-}
+//void MoveTank(Tank &tank,Board &board, Board &boardMine)
+//{
+//	    IO io;
+//	    Mine mine;
+//		io.ShowBoard(board);
+//        int move;
+//		bool check = false;
+//		do
+//		{
+//			check = false;
+//			
+//			io.ShowMap();
+//			
+//			cin >> move;		
+//			switch (move)
+//			{
+//			case 1:					
+//					board.ClearBoard();
+//					board.SetCoordinate(0, 0, 'T');
+//					CheckMine(boardMine, tank, mine, 0, 0);
+//				break;
+//
+//			case 2:
+//				    board.ClearBoard();
+//					board.SetCoordinate(0, 1, 'T');
+//					CheckMine(boardMine, tank, mine, 0, 1);
+//				break;
+//			case 3:
+//				    board.ClearBoard();
+//					board.SetCoordinate(0, 2, 'T');
+//					CheckMine(boardMine, tank, mine, 0, 2);
+//				
+//				break;
+//			case 4:
+//				 board.ClearBoard();
+//			     board.SetCoordinate(1, 0, 'T');
+//				 CheckMine(boardMine, tank, mine, 1, 0);
+//				break;
+//			case 5:
+//				 board.ClearBoard();
+//			     board.SetCoordinate(1, 1, 'T');
+//				 CheckMine(boardMine, tank, mine, 1, 1);
+//				break;
+//			case 6:
+//				board.ClearBoard();
+//			    board.SetCoordinate(1, 2, 'T');
+//				CheckMine(boardMine, tank, mine, 1, 2);
+//				break;
+//			case 7:
+//				board.ClearBoard();
+//			    board.SetCoordinate(2, 0, 'T');
+//				CheckMine(boardMine, tank, mine, 2, 0);
+//			case 8:
+//				board.ClearBoard();
+//			    board.SetCoordinate(2, 1, 'T');
+//				CheckMine(boardMine, tank, mine, 2, 1);
+//				break;
+//			case 9:
+//				board.ClearBoard();
+//			    board.SetCoordinate(2, 2, 'T');
+//				CheckMine(boardMine, tank, mine, 2, 2);
+//				break;
+//			default:
+//				cout << "Wrong ccordinate";
+//				check = true;
+//			}
+//		} while (check);
+//
+//}
 
 
 void Shot(Board& board, Tank& attack, Tank& defence)
@@ -316,16 +320,16 @@ void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 		cout << "Miss" << endl;
 	}
 }
-void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int y)
-{
-	IO io;
-	if (boardDefenceMine.GetCoordinate(x, y) == 'M')
-	{
-		tankDefence.SetHP(mine.GetDamageMine());
-		boardDefenceMine.SetCoordinate(x, y, ' ');
-		io.ShowMineStat(tankDefence, mine);
-		
-	}
-}
+//void CheckMine(Board &boardDefenceMine,Tank &tankDefence, Mine mine, int x, int y)
+//{
+//	IO io;
+//	if (boardDefenceMine.GetCoordinate(x, y) == 'M')
+//	{
+//		tankDefence.SetHP(mine.GetDamageMine());
+//		boardDefenceMine.SetCoordinate(x, y, ' ');
+//		io.ShowMineStat(tankDefence, mine);
+//		
+//	}
+//}
 
 
