@@ -6,22 +6,24 @@
 #include "IO.h"
 #include "MoveTank.h"
 #include <conio.h>
+#include <stdio.h>
+#include <Windows.h>
 
 using namespace std;
 
 void Move(Tank &name, Board& board, Board& boardMine1,Board& boardMine2, Mine mine, char action);
 void Shot(Board& board, Tank& attack, Tank& defence);
 void HealTank(Tank& tank, Heal& heal);
-//void MoveTank(Tank &tank,Board &board, Board &boardMine);
 void MoveMine(Tank& tank, Board& boardMine);
 void CheckShot(Board& board, Tank& attak, Tank& defence,int x,int y);
+
 //void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y);
   
 int main()
 {
 	IO io;
-	Tank tank1("Tank1", 100, 6, 10);
-	Tank tank2("Tank2", 100, 6, 10);
+	Tank tank1("Tank1", 100, 6, 10, 1, 1, 1);
+	Tank tank2("Tank2", 100, 6, 10, 2, 3, 3);
 	Mine mine1;
 	Mine mine2;
 	Heal heal1;
@@ -37,28 +39,9 @@ int main()
 	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
-		system("cls");
-		board1.ClearBoard();
-		board1.TempBoard(tank1.GetCoordinateX(),tank1.GetCoordinateY(),'T');
-		IO::ShowBoard(board1);
-		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
-        move = _getch();
-		switch(move)
-		{
-		case 's':
-			MoveTank::MoveDown(tank1,board1);
-			break;
-		case 'w':
-			MoveTank::MoveUp(tank1,board1);
-			break;
-		case 'a':
-			MoveTank::MoveLeft(tank1,board1);
-			break;
-		case 'd':
-			MoveTank::MoveRight(tank1,board1);
-			break;
-		}
-		IO::ShowBoard(board1);
+		MoveTank::Move(tank1,tank2,board1);
+		//MoveTank::Move(tank2,tank1,board1);
+		
 	
 
 
