@@ -13,6 +13,8 @@ private:
 	int damage;
 	int initiative;
 	int ongoingInitiative;
+	int coordinateX;
+	int coordinateY;
 public:
 	Tank() //конструктор по умолчанию
 	{
@@ -21,7 +23,8 @@ public:
 		damage = 6;
 		initiative = 10;
 		ongoingInitiative = initiative;
-		
+		coordinateX = 1;
+		coordinateY = 1;
 	}
 
 	Tank(std::string name, int hp, int damage,int initiative) //конструктор
@@ -31,7 +34,8 @@ public:
 		this->damage = damage;
 		this->initiative = initiative;
 		ongoingInitiative = initiative;
-		
+		coordinateX = 1;
+		coordinateY = 1;		
 	}
 
 	void SetHP(int damage) //получение урона танком
@@ -87,5 +91,22 @@ public:
 	{
 		return ongoingInitiative;
 	}
+	int GetCoordinateX()
+	{
+		return coordinateX;
+	}
+	int GetCoordinateY()
+	{
+		return coordinateY;
+	}
+	void SetCoordinateX(int x)
+	{
+		 coordinateX = x;
+	}
+	void SetCoordinateY(int y)
+	{	
+		 coordinateY = y;
+	}
+
 
 };

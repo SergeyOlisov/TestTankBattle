@@ -9,6 +9,8 @@ private:
 	int counter = 0;
 	string name = "Mine";
 	int damageMine = 15;
+	int coordinateX;
+	int coordinateY;
 public:
 	Mine() {}
 	void ActivateCounter()
@@ -32,7 +34,14 @@ public:
 	{
 		return counter;
 	}
-
+	int GetCoordinateX()
+	{
+		return coordinateX;
+	}
+	int GetCoordinateY()
+	{
+		return coordinateY;
+	}
 
 
 };

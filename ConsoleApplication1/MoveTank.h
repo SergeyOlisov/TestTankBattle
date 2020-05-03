@@ -4,82 +4,72 @@
 #include "IO.h"
 #include "Mine.h"
 using namespace std;
-class Move
+class MoveTank
 {
 	
 public:
-	Move() {};
-	void MoveTank(Tank& tank, Board& board, Board& boardMine)
+	
+	/*void MoveTank(Tank& tank, Board& board, Board& boardMine)
 	{
-		IO io;
-		Mine mine;
-		io.ShowBoard(board);
-		int move;
-		bool check = false;
-		do
+		
+	char move;
+	int x = 1;
+	int y = 1;
+	int coup = 0;
+	board.SetCoordinate(x, y,'T');
+
+	}*/
+	static void MoveDown(Tank& tank, Board& board)
+	{
+		if (tank.GetCoordinateX() == board.SIZEBOARD-1)
 		{
-			check = false;
-
-			io.ShowMap();
-
-			cin >> move;
-			switch (move)
-			{
-			case 1:
-				board.ClearBoard();
-				board.SetCoordinate(0, 0, 'T');
-				CheckMine(boardMine, tank, mine, 0, 0);
-				break;
-
-			case 2:
-				board.ClearBoard();
-				board.SetCoordinate(0, 1, 'T');
-				CheckMine(boardMine, tank, mine, 0, 1);
-				break;
-			case 3:
-				board.ClearBoard();
-				board.SetCoordinate(0, 2, 'T');
-				CheckMine(boardMine, tank, mine, 0, 2);
-
-				break;
-			case 4:
-				board.ClearBoard();
-				board.SetCoordinate(1, 0, 'T');
-				CheckMine(boardMine, tank, mine, 1, 0);
-				break;
-			case 5:
-				board.ClearBoard();
-				board.SetCoordinate(1, 1, 'T');
-				CheckMine(boardMine, tank, mine, 1, 1);
-				break;
-			case 6:
-				board.ClearBoard();
-				board.SetCoordinate(1, 2, 'T');
-				CheckMine(boardMine, tank, mine, 1, 2);
-				break;
-			case 7:
-				board.ClearBoard();
-				board.SetCoordinate(2, 0, 'T');
-				CheckMine(boardMine, tank, mine, 2, 0);
-			case 8:
-				board.ClearBoard();
-				board.SetCoordinate(2, 1, 'T');
-				CheckMine(boardMine, tank, mine, 2, 1);
-				break;
-			case 9:
-				board.ClearBoard();
-				board.SetCoordinate(2, 2, 'T');
-				CheckMine(boardMine, tank, mine, 2, 2);
-				break;
-			default:
-				cout << "Wrong ccordinate";
-				check = true;
-			}
-		} while (check);
-
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY(), 'T');
+		}
+		if (tank.GetCoordinateX()  <  board.SIZEBOARD-1)
+		{
+			board.SetCoordinate(tank.GetCoordinateX() + 1, tank.GetCoordinateY(), 'T');
+			tank.SetCoordinateX(tank.GetCoordinateX() + 1);
+		}
 	}
-
-	void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
+	static void MoveUp(Tank& tank, Board& board)
+	{
+		if (tank.GetCoordinateX() == 0)
+		{
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY(), 'T');
+		}
+		if (tank.GetCoordinateX()  >  0)
+		{
+			board.SetCoordinate(tank.GetCoordinateX() -1, tank.GetCoordinateY(), 'T');
+			tank.SetCoordinateX(tank.GetCoordinateX() -1);
+		}
+	}
+	static void MoveRight(Tank& tank, Board& board)
+	{
+		if (tank.GetCoordinateY() == board.SIZEBOARD-1)
+		{
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY(), 'T');
+		}
+		if (tank.GetCoordinateY()  <  board.SIZEBOARD-1)
+		{
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY()+1, 'T');
+			tank.SetCoordinateY(tank.GetCoordinateY()+1);
+		}
+	}
+	static void MoveLeft(Tank& tank, Board& board)
+	{
+		if (tank.GetCoordinateY() ==0)
+		{
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY(), 'T');
+		}
+		if (tank.GetCoordinateY()  > 0)
+		{
+			board.SetCoordinate(tank.GetCoordinateX(), tank.GetCoordinateY()-1, 'T');
+			tank.SetCoordinateY(tank.GetCoordinateY()-1);
+		}
+	}
+	
+	
+	static void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
 	{
 		IO io;
 		if (boardDefenceMine.GetCoordinate(x, y) == 'M')

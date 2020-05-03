@@ -4,46 +4,54 @@ using namespace std;
 
 class Board
 {
+public:
+	static const int SIZEBOARD = 3;
 private:
-	char board[3][3];
-	int coordinateX;
-	int coordinateY;
+	char board[SIZEBOARD][SIZEBOARD];
+	//int coordinateX;
+	//int coordinateY;
 public:
 	Board() //конструктор
 	{
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = 0; j < 3; j++)
-			{
-				board[i][j]=' ';
-			}
-		}
+		ClearBoard();
 	}
 
-	void ClearBoard() //очистка поля
+	 void ClearBoard() //очистка поля
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < SIZEBOARD; i++)
 		{
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; j < SIZEBOARD; j++)
 			{
 				board[i][j] = ' ';
 			}
 		}
 	}
-
+	void TempBoard(int x, int y, char essence)
+	{
+		for (int i = 0; i < SIZEBOARD; i++)
+		{
+			for (int j = 0; j < SIZEBOARD; j++)
+			{
+				if (i == x && j == y)
+				{
+					board[i][j] = essence;
+				}
+			}
+		}
+	}
 	void SetCoordinate(int x, int y, char move) //заполнение массива значением
 	{
 		board[x][y] = move;
 	}
 
-	int GetCoordinateX()
+	/*int GetCoordinateX()
 	{
 		return coordinateX;
 	}
 	int GetCoordinateY()
 	{
 		return coordinateY;
-	}
+	}*/
 	char GetCoordinate(int x, int y)
 	{
 		return board[x][y];
