@@ -3,7 +3,8 @@
 using namespace std;
 #include<stdlib.h>//в этом файле содержится функция rand
 #include<time.h> //в этом файле содержится функция time
-
+#include <stdio.h>
+#include <Windows.h>
 
 class Tank
 {
@@ -15,6 +16,7 @@ private:
 	int ongoingInitiative;
 	int coordinateX;
 	int coordinateY;
+	int color;
 public:
 	Tank() //конструктор по умолчанию
 	{
@@ -27,15 +29,16 @@ public:
 		coordinateY = 1;
 	}
 
-	Tank(std::string name, int hp, int damage,int initiative) //конструктор
+	Tank(std::string name, int hp, int damage,int initiative,int color, int x, int y) //конструктор
 	{
 		this->name = name;
 		this->hp = hp;
 		this->damage = damage;
 		this->initiative = initiative;
 		ongoingInitiative = initiative;
-		coordinateX = 1;
-		coordinateY = 1;		
+		coordinateX = x;
+		coordinateY = y;
+		this->color = color;
 	}
 
 	void SetHP(int damage) //получение урона танком
@@ -107,6 +110,8 @@ public:
 	{	
 		 coordinateY = y;
 	}
-
-
+	int GetColor()
+	{
+		return color;
+	}
 };

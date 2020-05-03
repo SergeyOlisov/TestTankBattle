@@ -2,21 +2,20 @@
 #include <string>
 using namespace std;
 
+
+
 class Board
 {
 public:
-	static const int SIZEBOARD = 3;
+	static const int SIZEBOARD = 5;
 private:
 	char board[SIZEBOARD][SIZEBOARD];
-	//int coordinateX;
-	//int coordinateY;
 public:
 	Board() //конструктор
 	{
 		ClearBoard();
 	}
-
-	 void ClearBoard() //очистка поля
+	void ClearBoard() //очистка поля
 	{
 		for (int i = 0; i < SIZEBOARD; i++)
 		{
@@ -43,15 +42,6 @@ public:
 	{
 		board[x][y] = move;
 	}
-
-	/*int GetCoordinateX()
-	{
-		return coordinateX;
-	}
-	int GetCoordinateY()
-	{
-		return coordinateY;
-	}*/
 	char GetCoordinate(int x, int y)
 	{
 		return board[x][y];

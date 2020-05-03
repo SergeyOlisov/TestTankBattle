@@ -1,22 +1,26 @@
 #pragma once
 #include <iostream>
+#include <stdio.h>
+#include <Windows.h>
 using namespace std;
 
  class IO
 {
 public:
-	static void ShowBoard(Board board)
+	static void ShowBoard(Board board, Tank tank)
 	{
-		cout << "-------" << endl;
-		for (int i = 0; i < 3; i++)
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		cout << "------------" << endl;
+		for (int i = 0; i <board.SIZEBOARD; i++)
 		{
 			cout << "|";
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; j < board.SIZEBOARD; j++)
 			{
-				cout << board.GetCoordinate(i, j) << "|";
+				cout << board.GetCoordinate(i, j); 
+				cout << "|";
 			}
 			cout << endl;
-			cout << "-------" << endl;
+			cout << "------------" << endl;
 		}
 	}
 	static void ShowShot(int damage, Tank tank1, Tank tank2)// для отображения здоровья и полученого урона танка
@@ -27,7 +31,6 @@ public:
 	}
 	static void ShowMineStat(Tank tank, Mine mine)
 	{
-		cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() << " By mine!!! " << " .HP " << tank.GetName() << "= " << tank.GetHP() << endl;
+		cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() << " By mine!!! " << " HP " << tank.GetName() << " = " << tank.GetHP() << endl;
 	}
-
 };
