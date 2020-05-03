@@ -5,6 +5,7 @@
 #include "Heal.h"
 #include "IO.h"
 #include "MoveTank.h"
+#include <conio.h>
 
 using namespace std;
 
@@ -31,22 +32,47 @@ int main()
 	Board boardMine2;
 	
 	
+	char move;
 	
 	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
-		
+		system("cls");
+		board1.ClearBoard();
+		board1.TempBoard(tank1.GetCoordinateX(),tank1.GetCoordinateY(),'T');
+		IO::ShowBoard(board1);
+		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
+        move = _getch();
+		switch(move)
+		{
+		case 's':
+			MoveTank::MoveDown(tank1,board1);
+			break;
+		case 'w':
+			MoveTank::MoveUp(tank1,board1);
+			break;
+		case 'a':
+			MoveTank::MoveLeft(tank1,board1);
+			break;
+		case 'd':
+			MoveTank::MoveRight(tank1,board1);
+			break;
+		}
+		IO::ShowBoard(board1);
+	
+
+
 		/*MoveTank(tank1, board1,boardMine1);*/
-		MoveMine(tank1, boardMine2);
+		/*MoveMine(tank1, boardMine2);
 		Shot(board2, tank1, tank2);
 		system("pause");
 		system("cls");
 
 		/*MoveTank(tank2, board2,boardMine2);*/
-		MoveMine(tank2, boardMine1);
+		/*MoveMine(tank2, boardMine1);
 		Shot(board1, tank2, tank1);
 		system("pause");
-		system("cls");
+		*///system("cls");
 		/*if (tank1.GetOngoingIniciative() >= 10) 
 		{
 			//Ходит первый игрок
@@ -104,6 +130,7 @@ int main()
 		}
 		system("pause");
 		system("cls");*/
+		
 	}
 }
 
@@ -303,7 +330,7 @@ void MoveMine(Tank& tank, Board& boardMine)
 
 void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 {
-	IO io;
+	
 	if (board.GetCoordinate(x, y) == 'T')
 	{
 		int damage;
@@ -313,7 +340,7 @@ void CheckShot(Board& board, Tank& attack, Tank& defence, int x, int y)
 			cout << "!!!Critical damage!!!" << endl;
 		}
 		defence.SetHP(damage);
-		io.ShowShot(damage, attack, defence);
+	//	io.ShowShot(damage, attack, defence);
 	}
 	else
 	{
