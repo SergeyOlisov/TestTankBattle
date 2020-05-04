@@ -23,7 +23,7 @@ int main()
 {
 	IO io;
 	Tank tank1("Tank1", 100, 6, 10, 1, 1, 1);
-	Tank tank2("Tank2", 100, 6, 10, 2, 3, 3);
+	Tank tank2("Tank2", 100, 6, 10, 2, 2, 2);
 	Mine mine1;
 	Mine mine2;
 	Heal heal1;
@@ -39,78 +39,29 @@ int main()
 	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
-	
+		board1.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
+		board2.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
+		system("cls");
+		IO::ShowBoard(board1, tank1);
+		IO::ShowBoard(board2, tank2);
+		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
 		MoveTank::Move(tank1, tank2, board1, board2);
-		MoveTank::Move(tank2, tank1, board1, board1);
-
-		/*MoveTank(tank1, board1,boardMine1);*/
-		/*MoveMine(tank1, boardMine2);
-		Shot(board2, tank1, tank2);
-		system("pause");
+		board1.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
+		board2.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
 		system("cls");
+		IO::ShowBoard(board1, tank1);
+		IO::ShowBoard(board2, tank2);
 
-		/*MoveTank(tank2, board2,boardMine2);*/
-		/*MoveMine(tank2, boardMine1);
-		Shot(board1, tank2, tank1);
-		system("pause");
-		*///system("cls");
-		/*if (tank1.GetOngoingIniciative() >= 10) 
-		{
-			//Ходит первый игрок
-			ShowBoard(board1);
-			Move(tank1, board1, boardMine2, boardMine1, mine1, 'T');
-			Shot(board2, tank1, tank2);
-			system("pause");
-			system("cls");
-			if (mine1.GetCounter() > 0)
-			{
-				cout << "Mine reload after " << mine1.GetCounter() << " turns " << endl;
-			}
-			else {
-				Move(tank1, board1, boardMine2, boardMine1, mine1, 'M');
-				mine1.ActivateCounter();
-			}
-			mine1.Countdown();
-			HealTank(tank1, heal1);
-
-			if (tank2.GetHP() <= 0)
-			{
-				cout << tank2.GetName() << " WIN " << endl;
-			}
-			system("pause");
-			system("cls");
-			tank1.ZeroingInitiative();
-		}
-		else if(tank1.GetOngoingIniciative()<10)
-		{
-
-			tank1.SetInitiative(tank1.GetInitiative());
-		}
-		
-		
-		//Ходит второй игрок
-		ShowBoard(board2);
-		Move(tank2, board2,boardMine1,boardMine2,mine2,'T');
-		Shot(board1, tank2, tank1);
-		system("pause");
+		Mine::MoveMine(mine1, mine2, boardMine1, boardMine2,tank1);
+		IO::ShowBoard(boardMine2, tank1);
+		board1.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
+		board2.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
 		system("cls");
-
-		if (mine2.GetCounter() > 0)
-		{
-			cout << "Mine reload after " << mine2.GetCounter() << " turns " << endl;
-		} else {
-			Move(tank2, board2, boardMine1, boardMine2, mine2, 'M');
-			mine2.ActivateCounter();
-		}
-		mine2.Countdown();
-		HealTank(tank2, heal2);
-		
-		if(tank1.GetHP()<=0)
-		{
-			cout << tank1.GetName() << " WIN " << endl;
-		}
-		system("pause");
-		system("cls");*/
+		IO::ShowBoard(board1, tank1);
+		IO::ShowBoard(board2, tank2);
+		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
+		MoveTank::Move(tank2, tank1, board2, board1);
+		cout << "Move mine" <<endl;
 		
 	}
 }

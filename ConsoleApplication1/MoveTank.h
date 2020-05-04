@@ -11,12 +11,8 @@ public:
 	static void Move(Tank& tank1,Tank& tank2, Board& board1,Board& board2)
 	{
 		char move;
-		system("cls");
 		board1.ClearBoard();
-		board1.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
-		board1.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
-		IO::ShowBoard(board1);
-		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
+		board2.ClearBoard();
 		move = _getch();
 		switch (move)
 		{
@@ -83,7 +79,7 @@ public:
 			tank.SetCoordinateY(tank.GetCoordinateY()-1);
 		}
 	}
-	static void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
+	/*static void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
 	{
 		
 		if (boardDefenceMine.GetCoordinate(x, y) == 'M')
@@ -92,5 +88,5 @@ public:
 			boardDefenceMine.SetCoordinate(x, y, ' ');
 			IO::ShowMineStat(tankDefence, mine);
 		}
-	}
+	}*/
 };

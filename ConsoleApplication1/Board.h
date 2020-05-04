@@ -7,7 +7,7 @@ using namespace std;
 class Board
 {
 public:
-	static const int SIZEBOARD = 6;
+	static const int SIZEBOARD = 4;
 private:
 	char board[SIZEBOARD][SIZEBOARD];
 public:
