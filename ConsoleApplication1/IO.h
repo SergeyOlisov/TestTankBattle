@@ -7,8 +7,11 @@ using namespace std;
  class IO
 {
 public:
-	static void ShowBoard(Board board, Tank tank)
+	static void ShowBoard(Board board)
 	{
+		
+		
+
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		cout << "------------" << endl;
 		for (int i = 0; i <board.SIZEBOARD; i++)
@@ -16,7 +19,26 @@ public:
 			cout << "|";
 			for (int j = 0; j < board.SIZEBOARD; j++)
 			{
-				cout << board.GetCoordinate(i, j); 
+				if (board.GetCoordinate(i,j) == 'T')
+				{
+					SetConsoleTextAttribute(hConsole, (WORD)((4 << 4) | 15));
+					cout << board.GetCoordinate(i, j);
+					SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+					
+				}
+				/*else if (board.GetCoordinate(i, j) == 'T' && count1 ==1)
+				{
+					SetConsoleTextAttribute(hConsole, (WORD)((2 << 4) | 1));
+					cout << board.GetCoordinate(i, j);
+					SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+					
+				}
+			*/
+				else
+				{
+					cout<< board.GetCoordinate(i, j);
+				}
+				
 				cout << "|";
 			}
 			cout << endl;
