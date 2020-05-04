@@ -8,29 +8,29 @@ using namespace std;
 class MoveTank
 {
 public:
-	static void Move(Tank& tank1,Tank& tank2, Board& board)
+	static void Move(Tank& tank1,Tank& tank2, Board& board1,Board& board2)
 	{
 		char move;
 		system("cls");
-		board.ClearBoard();
-		board.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
-		board.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
-		IO::ShowBoard(board, tank1);
+		board1.ClearBoard();
+		board1.TempBoard(tank1.GetCoordinateX(), tank1.GetCoordinateY(), 'T');
+		board1.TempBoard(tank2.GetCoordinateX(), tank2.GetCoordinateY(), 'T');
+		IO::ShowBoard(board1);
 		cout << "S-Down,W-MoveUp,A-left,D-Right" << endl;
 		move = _getch();
 		switch (move)
 		{
 		case 's':
-			MoveDown(tank1, board);
+			MoveDown(tank1, board1);
 			break;
 		case 'w':
-			MoveUp(tank1, board);
+			MoveUp(tank1, board1);
 			break;
 		case 'a':
-			MoveLeft(tank1, board);
+			MoveLeft(tank1, board1);
 			break;
 		case 'd':
-			MoveRight(tank1, board);
+			MoveRight(tank1, board1);
 			break;
 		}
 	}

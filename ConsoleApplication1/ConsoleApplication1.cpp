@@ -39,11 +39,9 @@ int main()
 	
 	while (tank1.GetHP() >= 0 && tank2.GetHP() >= 0)
 	{
-		MoveTank::Move(tank1,tank2,board1);
-		//MoveTank::Move(tank2,tank1,board1);
-		
 	
-
+		MoveTank::Move(tank1, tank2, board1, board2);
+		MoveTank::Move(tank2, tank1, board1, board1);
 
 		/*MoveTank(tank1, board1,boardMine1);*/
 		/*MoveMine(tank1, boardMine2);
