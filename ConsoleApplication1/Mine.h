@@ -54,32 +54,72 @@ public:
 		return coordinateY;
 	}
 
-	static void MoveMine(Mine& mine1, Mine& mine2, Board& board1, Board& board2,Tank tank)
+	static void MoveMine(Mine mine,Board& boardMovedPlayer,Board& boardEnemy, Board& boardMine,Tank& tankMovedPlayer,Tank& tankEnemy,int changed)
 	{
 
 		char move;
 		do
 		{
-			
-			board1.TempBoard(mine1.GetCoordinateX(), mine1.GetCoordinateY(), '*');
-			IO::ShowBoard(board1, tank);
-			move = _getch();
-			switch (move)
+			system("cls");
+			if (changed == 1)
 			{
-			case 's':
-				MoveDown(mine1, board1);
-				break;
-			case 'w':
-				MoveUp(mine1, board1);
-				break;
-			case 'a':
-				MoveLeft(mine1, board1);
-				break;
-			case 'd':
-				MoveRight(mine1, board1);
-				break;
+				boardEnemy.ClearBoard();
+				boardEnemy.TempBoard(tankEnemy.GetCoordinateX(), tankEnemy.GetCoordinateY(), 'T');
+				boardEnemy.TempBoard(mine.GetCoordinateX(), mine.GetCoordinateY(), '*');
 			}
-		} while (move != 'p');
+			else if(changed == 2)
+			{
+				boardMovedPlayer.ClearBoard();
+				boardMovedPlayer.TempBoard(tankMovedPlayer.GetCoordinateX(), tankMovedPlayer.GetCoordinateY(), 'T');
+				boardMovedPlayer.TempBoard(mine.GetCoordinateX(), mine.GetCoordinateY(), '*');
+			}
+			IO::ShowBoard(boardMovedPlayer, tankMovedPlayer);
+			IO::ShowBoard(boardEnemy, tankEnemy);
+			if (changed == 1)
+			{
+				move = _getch();
+				switch (move)
+				{
+				case 's':
+					MoveDown(mine, boardEnemy);
+					break;
+				case 'w':
+					MoveUp(mine, boardEnemy);
+					break;
+				case 'a':
+					MoveLeft(mine, boardEnemy);
+					break;
+				case 'd':
+					MoveRight(mine, boardEnemy);
+					break;
+				case 'm':
+					boardMine.SetCoordinate(mine.GetCoordinateX(), mine.GetCoordinateY(), '*');
+				}
+			}
+			else if (changed==2)
+			{
+
+				move = _getch();
+				switch (move)
+				{
+				case 's':
+					MoveDown(mine, boardMovedPlayer);
+					break;
+				case 'w':
+					MoveUp(mine, boardMovedPlayer);
+					break;
+				case 'a':
+					MoveLeft(mine, boardMovedPlayer);
+					break;
+				case 'd':
+					MoveRight(mine, boardMovedPlayer);
+					break;
+				case 'm':
+					boardMine.SetCoordinate(mine.GetCoordinateX(), mine.GetCoordinateY(), '*');
+				}
+
+			}
+		} while (move != 'm');
 	}
 
 	static void MoveDown(Mine& mine1, Board& board)

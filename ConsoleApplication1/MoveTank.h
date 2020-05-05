@@ -79,14 +79,15 @@ public:
 			tank.SetCoordinateY(tank.GetCoordinateY()-1);
 		}
 	}
-	/*static void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
+	static void CheckMine(Board& boardDefenceMine, Tank& tankDefence, Mine mine, int x, int y)
 	{
 		
-		if (boardDefenceMine.GetCoordinate(x, y) == 'M')
+		if (boardDefenceMine.GetCoordinate(x, y) == '*')
 		{
 			tankDefence.SetHP(mine.GetDamageMine());
 			boardDefenceMine.SetCoordinate(x, y, ' ');
-			IO::ShowMineStat(tankDefence, mine);
+			cout << "Tank - " << tankDefence.GetName() << " Have damage - " << mine.GetDamageMine() << " By mine!!! " << " HP " << tankDefence.GetName() << " = " << tankDefence.GetHP() << endl;
+			system("pause");
 		}
-	}*/
+	}
 };

@@ -1,7 +1,12 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include "Mine.h"
+#include "Tank.h"
+#include "Board.h"
 #include <stdio.h>
 #include <Windows.h>
+
 using namespace std;
 
  class IO
@@ -30,6 +35,14 @@ public:
                     cout << board.GetCoordinate(i, j);
                     SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
                 }
+                else if(board.GetCoordinate(i, j) == '*')
+                {
+
+                    SetConsoleTextAttribute(hConsole, (WORD)((7 << 4) | 4));
+                    cout << board.GetCoordinate(i, j);
+                    SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+
+				}
                 else
                 {
                     cout << board.GetCoordinate(i, j);
@@ -47,7 +60,7 @@ public:
 
 	}
 	/*static void ShowMineStat(Tank tank, Mine mine)
-	{
+    {
 		cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() << " By mine!!! " << " HP " << tank.GetName() << " = " << tank.GetHP() << endl;
 	}*/
 };
