@@ -32,6 +32,9 @@ int main()
 	Board board2;
 	Board boardMine1;
 	Board boardMine2;
+
+	IO::LogoTank();
+	system("pause");
 	
 	char move;
 		

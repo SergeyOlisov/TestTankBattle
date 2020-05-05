@@ -59,6 +59,44 @@ public:
 		cout << "Tank - " << tank2.GetName() << " Have damage - " << damage << " .HP " << tank2.GetName() << "= " << tank2.GetHP() << endl;
 
 	}
+
+	static void OkrasLogoTank(char logo[][100]) {// цвет логотипа
+		HANDLE consoleOutput;
+		consoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		for (int i = 0; i < 13; i++) {
+			if (i % 2 == 0) {
+				SetConsoleTextAttribute(consoleOutput, 12); //Перед строкой для выделения текста цветом 
+				cout << "\t" << logo[i] << endl;
+				SetConsoleTextAttribute(consoleOutput, 15); //Возвращаем назад цвет
+			}
+			else {
+				SetConsoleTextAttribute(consoleOutput, 10); //Перед строкой для выделения текста цветом
+				cout << "\t" << logo[i] << endl;
+				SetConsoleTextAttribute(consoleOutput, 15); //Возвращаем назад цвет
+			}
+		}
+	}
+
+	static void LogoTank() { // Логотип морского боя
+		char Logo[15][100] = {
+			" #######     ###        ##      ##   ##   ##           #############                         ",
+			"   ##      ##   ##     # ##    ##   ##  ##           ####################################### ",
+			"  ##     ## ### ##    ##  ##  ##   ## ##            ##################                       ",
+			" ##    ## ##### ##   ##    # ##   ##   ##       ###########################                  ",
+			"##   ##         ##  ##      ##   ##     ##    #################################              ",
+			"                                             #***O*******O*******O*******O****#              ",
+			"                                              #***O*****O*******O*******O****#               ",
+			"                                               ##############################                ",
+			"                    ######          ###     #######  ##                                      ",
+			"                   ##    ##       ##   ##     ##    ##                                       ",
+			"                  ########      ## ### ##    ##    ##                                        ",
+			"                 ##      ##   ## ##### ##   ##    ##                                         ",
+			"                ##########  ##         ##  ##    ########                                    ",
+		};
+		OkrasLogoTank(Logo);
+	}
+
 	/*static void ShowMineStat(Tank tank, Mine mine)
     {
 		cout << "Tank - " << tank.GetName() << " Have damage - " << mine.GetDamageMine() << " By mine!!! " << " HP " << tank.GetName() << " = " << tank.GetHP() << endl;
